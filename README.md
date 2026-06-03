@@ -53,6 +53,25 @@ php artisan queue:work
 - `GET /api/v1/analytics/surveys/{id}` — per-survey stats (cached 5 min)
 - `GET /api/v1/analytics/dashboard` — global stats (cached 10 min)
 
+## Testing
+
+The project uses PHPUnit with SQLite in-memory for fast, isolated tests.
+
+```bash
+php artisan test
+```
+
+### Test coverage
+
+- **Feature tests** (HTTP request lifecycle through routes, middleware, controllers):
+  - `SurveyControllerTest` — list, filter by status, create, validation
+  - `ResponseControllerTest` — create response, validate foreign keys, job dispatch
+
+- **Unit tests** (isolated class logic):
+  - `ProcessResponseJobTest` — verifies member stats increment after response
+
+Tests run against SQLite in-memory database — fast (~2-5 seconds) and isolated from local MySQL.
+
 ## Schema highlights
 
 ```sql
