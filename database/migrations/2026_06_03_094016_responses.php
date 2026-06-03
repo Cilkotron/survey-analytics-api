@@ -21,8 +21,8 @@ return new class () extends Migration {
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
 
-            // Composite indexes za high-traffic queries
-            $table->index(['survey_id', 'completed_at']); // za analytics per survey
+            // Composite indexes for high-traffic queries
+            $table->index(['survey_id', 'completed_at']); // for analytics per survey
             $table->index(['survey_id', 'completion_status']); // filter by status
             $table->index(['survey_member_id', 'completed_at']); // user history
             $table->index('completed_at'); // global time-based queries

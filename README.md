@@ -1,6 +1,6 @@
 # Survey Analytics API
 
-REST API for managing market research surveys, member panels, and response analytics. Built with Laravel 11 + MySQL.
+REST API for managing market research surveys, member panels, and response analytics. Built with Laravel 12 + MySQL.
 
 ## What this demonstrates
 
@@ -14,7 +14,7 @@ REST API for managing market research surveys, member panels, and response analy
 
 ## Tech stack
 
-- **Backend:** Laravel 11, PHP 8.3
+- **Backend:** Laravel 12, PHP 8.3
 - **Database:** MySQL 8 (composite indexes, JSON columns)
 - **Cache:** Laravel Cache (file driver locally, Redis-ready in production)
 - **Queue:** Laravel Queue (database driver locally)
@@ -93,7 +93,7 @@ CREATE INDEX idx_responses_survey_status
 
 ## Performance notes
 
-Tested locally with ~50k members and ~45k responses. Analytics queries with composite indexes return in <100ms. For 1M+ responses in production, the same query plan holds with read replicas + Redis caching.
+Tested locally with ~20k members and ~45k responses. Analytics queries with composite indexes return in <100ms. For 1M+ responses in production, the same query plan holds with read replicas + Redis caching.
 
 ## Author
 
