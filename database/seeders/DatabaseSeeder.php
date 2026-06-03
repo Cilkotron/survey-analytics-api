@@ -24,8 +24,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             SurveySeeder::class,        // 5 surveys
-            SurveyMemberSeeder::class,  // 50k members
-            ResponseSeeder::class,      // 1M responses
+            SurveyMemberSeeder::class,  // 20k members
+            ResponseSeeder::class,      // 45k responses
         ]);
     }
 }
