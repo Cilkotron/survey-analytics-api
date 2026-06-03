@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Jobs\ProcessResponseJob;
 
 class ResponseController extends Controller
 {
@@ -29,10 +30,11 @@ class ResponseController extends Controller
             'answers' => 'required|array',
             'duration_seconds' => 'required|integer|min:1',
             'completion_status' => 'required|in:completed,partial,abandoned',
+            'incentive_paid' => 'nullable|numeric|min:0',
         ]);
 
-        $validated['completed_at'] = now();
         $response = Response::create($validated);
+        ProcessResponseJob::dispatch($response);
 
         return response()->json($response, 201);
     }
