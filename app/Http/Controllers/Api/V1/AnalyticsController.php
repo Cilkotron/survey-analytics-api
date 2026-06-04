@@ -20,6 +20,8 @@ class AnalyticsController extends Controller
 
             //$base->ddRawSql();
 
+            // dd(DB::select('EXPLAIN ' . $base->toSql(), $base->getBindings()));
+
             return [
                 'survey_id' => $survey->id,
                 'survey_title' => $survey->title,
@@ -57,6 +59,7 @@ class AnalyticsController extends Controller
 
     private function responsesByCountry(int $surveyId): array
     {
+
         return DB::table('responses')
             ->join('survey_members', 'responses.survey_member_id', '=', 'survey_members.id')
             ->where('responses.survey_id', $surveyId)
