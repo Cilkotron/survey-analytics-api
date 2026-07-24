@@ -18,7 +18,7 @@ class AnalyticsController extends Controller
         $data = Cache::remember($cacheKey, 300, function () use ($survey) {
             $base = Response::where('survey_id', $survey->id);
 
-            //$base->ddRawSql();
+            // $base->ddRawSql();
 
             // dd(DB::select('EXPLAIN ' . $base->toSql(), $base->getBindings()));
 
