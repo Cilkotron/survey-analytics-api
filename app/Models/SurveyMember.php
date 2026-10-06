@@ -34,7 +34,7 @@ class SurveyMember extends Model
         return $this->hasMany(Response::class);
     }
 
-    public function scopeActive($query, $days = 30)
+    public function scopeActive(mixed $query, $days = 30)
     {
         return $query->where('last_active_at', '>=', now()->subDays($days));
     }

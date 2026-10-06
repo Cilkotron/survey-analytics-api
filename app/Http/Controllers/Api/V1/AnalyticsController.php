@@ -13,16 +13,17 @@ class AnalyticsController extends Controller
 {
     public function survey(Survey $survey): JsonResponse
     {
-        $cacheKey = "analytics:survey:{$survey->id}";
+       $cacheKey = "analytics:survey:{$survey->id}";
 
-        $data = Cache::remember($cacheKey, 300, function () use ($survey) {
+        $data = Cache::remember($cacheKey, 30, function () use ($survey) {
             $base = Response::where('survey_id', $survey->id);
 
-            // $base->ddRawSql();
 
-            // dd(DB::select('EXPLAIN ' . $base->toSql(), $base->getBindings()));
+            //$base->ddRawSql();
 
-            return [
+            //dd(DB::select('EXPLAIN ' . $base->toSql(), $base->getBindings()));
+
+          return [
                 'survey_id' => $survey->id,
                 'survey_title' => $survey->title,
                 'total_responses' => (clone $base)->count(),

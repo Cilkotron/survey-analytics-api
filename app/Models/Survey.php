@@ -32,7 +32,7 @@ class Survey extends Model
         return $this->hasMany(Response::class);
     }
 
-    public function scopeActive($query)
+    public function scopeActive(mixed $query)
     {
         return $query->where('status', 'active');
     }

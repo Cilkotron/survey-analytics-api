@@ -7,6 +7,7 @@ use App\Models\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Jobs\ProcessResponseJob;
+use App\Http\Requests\SurveyResponsePostRequest;
 
 class ResponseController extends Controller
 {
@@ -22,16 +23,9 @@ class ResponseController extends Controller
         return response()->json($responses);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(SurveyResponsePostRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'survey_id' => 'required|exists:surveys,id',
-            'survey_member_id' => 'required|exists:survey_members,id',
-            'answers' => 'required|array',
-            'duration_seconds' => 'required|integer|min:1',
-            'completion_status' => 'required|in:completed,partial,abandoned',
-            'incentive_paid' => 'nullable|numeric|min:0',
-        ]);
+        $validated = $request->validated();
 
         $response = Response::create($validated);
         ProcessResponseJob::dispatch($response);

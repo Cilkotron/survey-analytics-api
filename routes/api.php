@@ -13,7 +13,12 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     Route::apiResource('surveys', SurveyController::class);
-    Route::apiResource('responses', ResponseController::class)->only(['index', 'store']);
+    Route::apiResource('responses', ResponseController::class)
+        ->only(['index', 'store'])
+        ->middleware(['store' =>
+            'survey.active',
+            'throttle:survey_responses'
+        ]);
 
     Route::prefix('analytics')->group(function () {
         Route::get('surveys/{survey}', [AnalyticsController::class, 'survey']);

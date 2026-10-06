@@ -37,7 +37,7 @@ class Response extends Model
         return $this->belongsTo(SurveyMember::class, 'survey_member_id');
     }
 
-    public function scopeCompleted($query)
+    public function scopeCompleted(mixed $query)
     {
         return $query->where('completion_status', 'completed');
     }
