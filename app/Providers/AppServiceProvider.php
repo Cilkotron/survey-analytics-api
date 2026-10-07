@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RateLimiter::for('survay_responses', function (Request $request) {
+        RateLimiter::for('survey_responses', function (Request $request) {
             return $request->user()
             ? Limit::perMinute(60)->by($request->user()->id)
             : Limit::perMinute(10)->by($request->ip());
