@@ -21,6 +21,8 @@ REST API for managing market research surveys, member panels, and response analy
 
 ## Setup
 
+### Local Setup
+
 ```bash
 git clone https://github.com/Cilkotron/survey-analytics-api.git
 cd survey-analytics-api
@@ -34,6 +36,39 @@ php artisan db:seed
 
 php artisan serve
 php artisan queue:work
+```
+
+### Docker Setup (Laravel Sail)
+
+Laravel Sail provides a Docker-based local development environment with PHP 8.5 and MySQL 8.4.
+
+**Prerequisites:**
+- Docker Desktop installed and running
+
+**Installation:**
+
+```bash
+git clone https://github.com/Cilkotron/survey-analytics-api.git
+cd survey-analytics-api
+cp .env.example .env
+
+# Build and start the containers
+./sail up
+
+# Run composer install inside the container
+./sail composer install
+
+# Generate application key
+./sail artisan key:generate
+
+# Run migrations
+./sail artisan migrate
+
+# Seed the database
+./sail artisan db:seed
+
+# Run the queue worker
+./sail artisan queue:work
 ```
 
 ## Endpoints
@@ -57,8 +92,14 @@ php artisan queue:work
 
 The project uses PHPUnit with SQLite in-memory for fast, isolated tests.
 
+**Local:**
 ```bash
 php artisan test
+```
+
+**With Sail:**
+```bash
+./sail test
 ```
 
 ### Test coverage
