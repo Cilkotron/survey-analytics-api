@@ -88,9 +88,6 @@ cp .env.example .env
 
 # Run artisan commands
 ./sail artisan [command]
-
-# Run tests
-./sail test
 ```
 
 ## Endpoints
