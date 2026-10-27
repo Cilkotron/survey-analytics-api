@@ -13,31 +13,31 @@ class AnalyticsController extends Controller
 {
     public function survey(Survey $survey): JsonResponse
     {
-       $cacheKey = "analytics:survey:{$survey->id}";
+        $cacheKey = "analytics:survey:{$survey->id}";
 
         $data = Cache::remember($cacheKey, 30, function () use ($survey) {
             $base = Response::where('survey_id', $survey->id);
 
 
-            //$base->ddRawSql();
+            // $base->ddRawSql();
 
-            //dd(DB::select('EXPLAIN ' . $base->toSql(), $base->getBindings()));
+            // dd(DB::select('EXPLAIN ' . $base->toSql(), $base->getBindings()));
 
-          return [
-                'survey_id' => $survey->id,
-                'survey_title' => $survey->title,
-                'total_responses' => (clone $base)->count(),
-                'completed_responses' => (clone $base)->where('completion_status', 'completed')->count(),
-                'completion_rate' => round(
-                    (clone $base)->where('completion_status', 'completed')->count() /
-                    max((clone $base)->count(), 1) * 100,
-                    2
-                ),
-                'avg_duration_seconds' => round((clone $base)->avg('duration_seconds'), 0),
-                'total_incentive_paid' => (clone $base)->sum('incentive_paid'),
-                'responses_by_country' => $this->responsesByCountry($survey->id),
-                'responses_by_age_group' => $this->responsesByAgeGroup($survey->id),
-            ];
+            return [
+                  'survey_id' => $survey->id,
+                  'survey_title' => $survey->title,
+                  'total_responses' => (clone $base)->count(),
+                  'completed_responses' => (clone $base)->where('completion_status', 'completed')->count(),
+                  'completion_rate' => round(
+                      (clone $base)->where('completion_status', 'completed')->count() /
+                      max((clone $base)->count(), 1) * 100,
+                      2
+                  ),
+                  'avg_duration_seconds' => round((clone $base)->avg('duration_seconds'), 0),
+                  'total_incentive_paid' => (clone $base)->sum('incentive_paid'),
+                  'responses_by_country' => $this->responsesByCountry($survey->id),
+                  'responses_by_age_group' => $this->responsesByAgeGroup($survey->id),
+              ];
         });
 
         return response()->json($data);

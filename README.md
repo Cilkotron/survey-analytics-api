@@ -21,7 +21,7 @@ REST API for managing market research surveys, member panels, and response analy
 
 ## Setup
 
-### Local Setup
+### Local Development (MAMP/Herd/PHP)
 
 ```bash
 git clone https://github.com/Cilkotron/survey-analytics-api.git
@@ -30,7 +30,7 @@ composer install
 cp .env.example .env
 php artisan key:generate
 
-# Configure DB in .env
+# Configure DB in .env (see .env.example for MAMP settings)
 php artisan migrate
 php artisan db:seed
 
@@ -71,51 +71,31 @@ cp .env.example .env
 ./sail artisan queue:work
 ```
 
-**Alternative (if port 80 is in use):**
-
-If port 80 is already in use (e.g., by nginx), use port 8080:
-
-```bash
-# Start containers on port 8080
-APP_PORT=8080 docker-compose up -d laravel.test
-
-# Run migrations
-docker-compose exec laravel.test php artisan migrate
-
-# Seed the database
-docker-compose exec laravel.test php artisan db:seed
-
-# Run queue worker
-docker-compose exec laravel.test php artisan queue:work --tries=1 --timeout=0
-```
-
-The API will be available at `http://localhost:8080` instead of `http://localhost`.
-
 **Docker Management Commands:**
 
 ```bash
 # Check container status
-docker-compose ps
+./sail ps
 
 # Stop the app
-docker-compose stop
+./sail down
 
 # Restart the app
-docker-compose restart
+./sail restart
 
 # View logs
-docker-compose logs -f laravel.test
+./sail logs
 
 # Run artisan commands
-docker-compose exec laravel.test php artisan [command]
+./sail artisan [command]
 
 # Run tests
-docker-compose exec laravel.test php artisan test
+./sail test
 ```
 
 ## Endpoints
 
-**Base URL:** `http://localhost:8080` (or `http://localhost` if using default port 80)
+**Base URL:** `http://localhost:8080`
 
 ### Surveys
 - `GET /api/v1/surveys` — list surveys (paginated, filterable by status)
